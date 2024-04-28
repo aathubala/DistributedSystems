@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const UserModel = require('./models/Users')
 
 dotenv.config();
 
@@ -10,6 +11,8 @@ const URL = process.env.MONGODB_URL;
 mongoose.connect(URL, {
   //define connection
 });
+
+
 
 const connection = mongoose.connection; //assign database connection for a constant variable
 

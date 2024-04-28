@@ -11,6 +11,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import CreateItem from "./FarmerSubComponents/CreateItem";
 import ViewItems from "./FarmerSubComponents/ViewItems";
 import EditItem from "./FarmerSubComponents/EditItem";
+import Table from "./FarmerSubComponents/Table";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -77,6 +78,7 @@ const SupervisorDashboard = () => {
               : ["0"]
           }
         >
+
           <Menu.Item
             key="0"
             icon={<PullRequestOutlined />}
@@ -88,6 +90,7 @@ const SupervisorDashboard = () => {
           >
             Add Course
           </Menu.Item>
+
           <Menu.Item
             key="1"
             icon={<AuditOutlined />}
@@ -98,6 +101,18 @@ const SupervisorDashboard = () => {
             }}
           >
             View Courses
+          </Menu.Item>
+
+          <Menu.Item
+            //key="1"
+            icon={<AuditOutlined />}
+            onClick={() => {
+              history(
+                `/farmer-dashboard/${localStorage.getItem("username")}/table`
+              );
+            }}
+          >
+            Table
           </Menu.Item>
         </Menu>
 
@@ -147,6 +162,12 @@ const SupervisorDashboard = () => {
             `/farmer-dashboard/${localStorage.getItem(
               "username"
             )}/edit/${id}` && <EditItem />}
+
+          {pathname ===
+            `/farmer-dashboard/${localStorage.getItem("username")}/table` && (
+            <Table />
+          )}
+
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} E-Study Online Learning
