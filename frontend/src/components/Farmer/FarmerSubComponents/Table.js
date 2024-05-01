@@ -23,37 +23,41 @@ const Table = () => {
 
 
     return (
-        <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
-        <div className="w-50">
-        <table className="table">
+      <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
+      <div className="w-50">
+        <table className="table" style={{ borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr>
-              <th>
+              <th style={{ border: '1px solid black', padding: '8px' }}>
                 Name
               </th>
-              <th>
+              <th style={{ border: '1px solid black', padding: '8px' }}>
                 Email
               </th>
-              <th>
+              <th style={{ border: '1px solid black', padding: '8px' }}>
                 Type
+              </th>
+              <th style={{ border: '1px solid black', padding: '8px' }}>
+                Courses
               </th>
             </tr>
           </thead>
           <tbody>
             {
               users.map(user => {
-                return <tr>
-                  <td> {user.username} </td>
-                  <td> {user.email} </td>
-                  <td> {user.type} </td>
+                return <tr key={user._id}>
+                  <td style={{ border: '1px solid black', padding: '8px' }}> {user.username} </td>
+                  <td style={{ border: '1px solid black', padding: '8px' }}> {user.email} </td>
+                  <td style={{ border: '1px solid black', padding: '8px' }}> {user.type} </td>
+                  <td style={{ border: '1px solid black', padding: '8px' }}> {"HTML, CSS"} </td>
                 </tr>
               })
             }
           </tbody>
         </table>
       </div>
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default Table;

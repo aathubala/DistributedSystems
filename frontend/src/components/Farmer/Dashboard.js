@@ -5,6 +5,7 @@ import {
   AuditOutlined,
   LogoutOutlined,
   HomeOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
@@ -104,16 +105,17 @@ const SupervisorDashboard = () => {
           </Menu.Item>
 
           <Menu.Item
-            //key="1"
-            icon={<AuditOutlined />}
+            //key="2"
+            icon={<UserOutlined />}
             onClick={() => {
               history(
                 `/farmer-dashboard/${localStorage.getItem("username")}/table`
               );
             }}
           >
-            Table
+            Manage Learners
           </Menu.Item>
+
         </Menu>
 
         <br />
