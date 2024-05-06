@@ -82,6 +82,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/buyer-dashboard/:username/courses"
+            element={
+              <PrivateRoute>
+                <BuyerDashboard />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

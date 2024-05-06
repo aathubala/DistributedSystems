@@ -12,6 +12,7 @@ import Products from "./BuyerSubComponents/Products";
 import Shop from "./BuyerSubComponents/Shop";
 import "./styles/Dashboard.css";
 import Api from "./Cart/api";
+import EnrolledCourse from "./BuyerSubComponents/EnrolledCourse";
 
 const { Header, Content, Footer } = Layout;
 
@@ -88,6 +89,16 @@ const BuyerDashboard = () => {
           >
             <ShopOutlined /> Entroll
           </Menu.Item>
+
+          <Menu.Item
+            key="3"
+            onClick={() =>
+              history(`/buyer-dashboard/${localStorage.getItem("username")}/courses`)
+            }
+          >
+            <HomeOutlined /> Courses
+          </Menu.Item>
+
         </Menu>
         <div style={{ float: "right" }}>
           <ShoppingCartOutlined /> Entrolled {data?.length === 0 ? 0 : data?.length}
@@ -114,6 +125,12 @@ const BuyerDashboard = () => {
           `/buyer-dashboard/${localStorage.getItem("username")}/shop` && (
           <Shop />
         )}
+        
+        {pathname ===
+          `/buyer-dashboard/${localStorage.getItem("username")}/courses` && (
+          <EnrolledCourse/>
+        )}
+
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Copyright © {date.getFullYear()} E-Study Online Learning Platform
