@@ -51,7 +51,7 @@ const Table = () => {
                                     <td style={{ border: '1px solid black', padding: '8px' }}> {user.type} </td>
                                     <td style={{ border: '1px solid black', padding: '8px' }}> {"HTML, CSS"} </td>
                                     <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center', verticalAlign: 'middle' }}>
-                                        <button onClick={() => { /* Handle button click */ }}>
+                                        <button onClick={() => { window.location.href = '/TrackLearner.html'; }}>
                                             Track Learner
                                         </button>
                                     </td>
