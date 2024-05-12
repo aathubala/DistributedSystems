@@ -1,7 +1,9 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BuyerDashboard from "./components/Buyer/Dashboard";
 import FarmerDashboard from "./components/Farmer/Dashboard";
+
 
 // Login Register Reset Imports Goes Here
 
@@ -10,10 +12,22 @@ import Register from "./components/Register/Register";
 import ResetPassword from "./components/Register/ResetPassword";
 import PageNotFound from "./components/routes/PageNotFound";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import Ordersscreen from "./components/Buyer/BuyerSubComponents/Ordersscreen";
 
 const App = () => {
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    axios.get('http://localhost:8070/getUsers')
+      .then(users => setUsers(users.data))
+      .catch(err => console.log(err))
+  }, [])
+
   return (
+
     <>
+
+
+
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -56,6 +70,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/farmer-dashboard/:username/table"
+            element={
+              <PrivateRoute>
+                <FarmerDashboard />
+              </PrivateRoute>
+            }
+          />
 
           {/* Buyer */}
           <Route
@@ -82,7 +104,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-
+          <Route path="/orders" exact element={<Ordersscreen />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
