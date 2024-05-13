@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Course Tracking</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+    h1 {
+        color: #333;
+    }
+    .progress {
+        width: 100%;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .progress-bar {
+        width: 60%;
+        height: 30px;
+        background-color: #4CAF50;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+    .progress-bar2 {
+        width: 40%;
+        height: 30px;
+        background-color: #4CAF50;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+    .back-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+    <div class="container">
+        <h1>HTML Course Tracking</h1>
+        <div class="progress">
+            <div class="progress-bar">60% Complete</div>
+        </div>
+    </div>
+    <hr/>
+    <div class="container">
+        <h1>CSS Course Tracking</h1>
+        <div class="progress">
+            <div class="progress-bar2">40% Complete</div>
+        </div>
+    </div>
+</body>
+</html>

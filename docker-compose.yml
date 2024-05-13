@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  admin-service:
+    build:
+      context: ./Instructor-learnerService/BACKEND
+    container_name: admin-service
+    ports:
+      - "8070:8070"
+    environment:
+      - MONGODB_URL=mongodb+srv://Distributed-Systems-Assignment:Aathu4522@cluster0.wd2ghxh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - mongo
+
+  instructor-learner-service:
+    build:
+      context: ./AdminService/server
+    container_name: instructor-learner-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

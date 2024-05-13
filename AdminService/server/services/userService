@@ -1,0 +1,86 @@
+const User = require("../models/userModel");
+
+async function addUser(username, email, password) {
+    try {
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            throw new Error("Email already registered");
+        }
+        const newUser = new User({ username, email, password });
+        await newUser.save();
+        return "Customer added Successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getCurrentUser(userId) {
+    try {
+        const currentUser = await User.findById(userId);
+        return currentUser;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getAllUsers() {
+    try {
+        const users = await User.find();
+        return users;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateUserPassword(userId, newPassword) {
+    try {
+        await User.findByIdAndUpdate(userId, { password: newPassword });
+        return "User Password Updated Successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateUserName(userId, newName) {
+    try {
+        await User.findByIdAndUpdate(userId, { name: newName });
+        return "User Name Updated Successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateUserEmail(userId, newEmail) {
+    try {
+        const userExists = await User.findOne({ email: newEmail });
+        if (userExists) {
+            throw new Error("Email already registered");
+        }
+        await User.findByIdAndUpdate(userId, { email: newEmail });
+        return "User Email Updated Successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function deleteUser(userId) {
+    try {
+        await User.findByIdAndDelete(userId);
+        return "User Deleted Successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Define other user management functions...
+
+module.exports = {
+    addUser,
+    getCurrentUser,
+    getAllUsers,
+    updateUserPassword,
+    updateUserName,
+    updateUserEmail,
+    deleteUser,
+    // Add other user management functions here...
+};
