@@ -28,17 +28,14 @@ To get started with the project, follow these steps:
 
 1. Clone the repository to your local machine:
 
-```javascript
-git clone <repository_url>```
+git clone <repository_url>
 
 2. Navigate to the project directory:
 
-```javascript
-cd DistributedSystems```
+cd DistributedSystems
 
 3. Build and run the Docker containers:
-```javascript
-docker-compose up --build```
+docker-compose up --build
 
 4. Access the services:
 
