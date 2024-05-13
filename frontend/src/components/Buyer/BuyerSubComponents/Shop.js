@@ -4,9 +4,15 @@ import { useEffect, useState } from "react";
 import Api from "../Cart/api";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import { deleteFromCart } from "../../../Actions/cartAction";
+import { useDispatch } from 'react-redux';
+import { placeOrder } from '../../../Actions/orderActions';
+
 
 const Shop = () => {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setData([...Api.values()]);
   });
@@ -15,9 +21,10 @@ const Shop = () => {
 
   data.filter((el) => (total += Number(el?.price)));
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (value) => {
     try {
-      Api.delete(id);
+      dispatch(deleteFromCart(value))
+      Api.delete(value?._id);
     } catch (error) {
       alert(error);
     }
@@ -25,6 +32,7 @@ const Shop = () => {
 
   async function handleToken(token, addresses) {
     const email = localStorage.getItem("email");
+    dispatch(placeOrder(token, total))
     await axios.post(
       "https://ry7v05l6on.sse.codesandbox.io/checkout", //third party payment gateway
       { token }
@@ -61,7 +69,7 @@ const Shop = () => {
                   <div>
                     <Button
                       style={{ background: "red", color: "white" }}
-                      onClick={() => deleteHandler(value?._id)}
+                      onClick={() => deleteHandler(value)}
                     >
                       <DeleteOutlined />
                     </Button>
@@ -77,10 +85,10 @@ const Shop = () => {
       <center>
         {total !== 0 && (
           <StripeCheckout
-            stripeKey="pk_test_4TbuO6qAW2XPuce1Q6ywrGP200NrDZ2233"
+            stripeKey="pk_test_GlFtmasU7tmBohUIk7vMbEnf00NA3VYaa0"
             token={handleToken}
             amount={(Number(total) / 370) * 100}
-            name="Agri Product Online Purchasing Platform"
+            name="Courses Online Purchasing Platform"
             billingAddress
             shippingAddress
           />

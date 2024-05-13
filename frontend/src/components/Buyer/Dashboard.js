@@ -3,16 +3,19 @@ import {
   SecurityScanOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
+  BookOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, Breadcrumb, Carousel, Button } from "antd";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CarouselView from "./BuyerSubComponents/Carousel";
 import Products from "./BuyerSubComponents/Products";
 import Shop from "./BuyerSubComponents/Shop";
 import "./styles/Dashboard.css";
 import Api from "./Cart/api";
 import EnrolledCourse from "./BuyerSubComponents/EnrolledCourse";
+import CourseContents from "./BuyerSubComponents/CourseContents";
+
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,6 +25,10 @@ const BuyerDashboard = () => {
   const { pathname } = location;
   const date = new Date();
   const hrs = date.getHours();
+
+  const url = window.location.href;
+
+  const lastValue = url.match(/[^/]+$/)[0];
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -53,12 +60,18 @@ const BuyerDashboard = () => {
           defaultSelectedKeys={["0"]}
           selectedKeys={
             pathname ===
-            `/buyer-dashboard/${localStorage.getItem("username")}/products`
+              `/buyer-dashboard/${localStorage.getItem("username")}/products`
               ? ["1"]
               : pathname ===
                 `/buyer-dashboard/${localStorage.getItem("username")}/shop`
-              ? ["2"]
-              : ["0"]
+                ? ["2"]
+                : pathname ===
+                  `/buyer-dashboard/${localStorage.getItem("username")}/courses`
+                  ? ["3"]
+                  : pathname ===
+                    `/buyer-dashboard/${localStorage.getItem("username")}/courses/${lastValue}`
+                    ? ["3"]
+                    : ["0"]
           }
         >
           <Menu.Item
@@ -87,7 +100,7 @@ const BuyerDashboard = () => {
               )
             }
           >
-            <ShopOutlined /> Entroll
+            <ShopOutlined /> Enroll
           </Menu.Item>
 
           <Menu.Item
@@ -96,10 +109,11 @@ const BuyerDashboard = () => {
               history(`/buyer-dashboard/${localStorage.getItem("username")}/courses`)
             }
           >
-            <HomeOutlined /> Courses
+            <BookOutlined />Enrolled Courses
           </Menu.Item>
 
         </Menu>
+
         <div style={{ float: "right" }}>
           <ShoppingCartOutlined /> Entrolled {data?.length === 0 ? 0 : data?.length}
         </div>
@@ -115,21 +129,24 @@ const BuyerDashboard = () => {
         </Breadcrumb>
         {pathname ===
           `/buyer-dashboard/${localStorage.getItem("username")}` && (
-          <CarouselView />
-        )}
+            <CarouselView />
+          )}
         {pathname ===
           `/buyer-dashboard/${localStorage.getItem("username")}/products` && (
-          <Products />
-        )}
+            <Products />
+          )}
         {pathname ===
           `/buyer-dashboard/${localStorage.getItem("username")}/shop` && (
-          <Shop />
-        )}
-        
+            <Shop />
+          )}
         {pathname ===
           `/buyer-dashboard/${localStorage.getItem("username")}/courses` && (
-          <EnrolledCourse/>
-        )}
+            <EnrolledCourse />
+          )}
+        {pathname ===
+          `/buyer-dashboard/${localStorage.getItem("username")}/courses/${lastValue}` && (
+            <CourseContents />
+          )}
 
       </Content>
       <Footer style={{ textAlign: "center" }}>
