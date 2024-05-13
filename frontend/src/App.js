@@ -1,7 +1,9 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BuyerDashboard from "./components/Buyer/Dashboard";
 import FarmerDashboard from "./components/Farmer/Dashboard";
+
 
 // Login Register Reset Imports Goes Here
 
@@ -10,10 +12,24 @@ import Register from "./components/Register/Register";
 import ResetPassword from "./components/Register/ResetPassword";
 import PageNotFound from "./components/routes/PageNotFound";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import Ordersscreen from "./components/Buyer/BuyerSubComponents/Ordersscreen";
+import EnrolledCourse from "./components/Buyer/BuyerSubComponents/EnrolledCourse";
+import CourseContent from "./components/Farmer/FarmerSubComponents/CourseContent";
 
 const App = () => {
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    axios.get('http://localhost:8070/getUsers')
+      .then(users => setUsers(users.data))
+      .catch(err => console.log(err))
+  }, [])
+
   return (
+
     <>
+
+
+
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -48,8 +64,26 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          
+          <Route
+            path={`/farmer-dashboard/:username/edit/courseContent/:courseID`}
+            element={
+              <PrivateRoute>
+                <CourseContent />
+              </PrivateRoute>
+            }
+          />
+
           <Route
             path="/farmer-dashboard/:username/edit/:id"
+            element={
+              <PrivateRoute>
+                <FarmerDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/farmer-dashboard/:username/table"
             element={
               <PrivateRoute>
                 <FarmerDashboard />
@@ -87,10 +121,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <BuyerDashboard />
-              </PrivateRoute>
-            }
+              </PrivateRoute>}
           />
-
+          <Route
+            path="/buyer-dashboard/:username/courses/:courseID"
+            element={
+              <PrivateRoute>
+                <BuyerDashboard />
+              </PrivateRoute>}
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

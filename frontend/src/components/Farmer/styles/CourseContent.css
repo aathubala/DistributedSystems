@@ -1,0 +1,78 @@
+.course-content-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content-section {
+    margin-bottom: 20px;
+  }
+  
+  .add-content-section {
+    margin-top: 20px;
+  }
+  
+  .note {
+    background-color: lightyellow;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  button {
+    margin-top: 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+
+  .delete-btn {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .delete-btn:disabled {
+    background-color: #808080;
+  }
+  
+  .delete-btn:hover {
+    background-color: #ff4837;
+  }
+  
+  .update-btn {
+    background-color: #32cd32;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .update-btn:hover {
+    background-color: #2bae2a;
+  }
+  
+  .cancel-btn {
+    background-color: #808080;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #6b6b6b;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(100% - 20px);
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
