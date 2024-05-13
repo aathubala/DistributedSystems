@@ -42,11 +42,14 @@ const Login = () => {
         { username, password },
         config
       );
-
+      console.log("user:", JSON.stringify(data));
       localStorage.setItem("authToken", data.token); //set the browser caching or local storage for globally accessed anywhere in the application
       localStorage.setItem("username", data.username);
       localStorage.setItem("email", data.email);
       localStorage.setItem("type", data?.type);
+      localStorage.setItem("user",JSON.stringify(data.data));
+      localStorage.setItem("userId", data._id);
+      
 
       setTimeout(() => {
         // set a 5seconds timeout for authentication

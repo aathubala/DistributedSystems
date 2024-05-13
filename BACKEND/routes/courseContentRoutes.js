@@ -79,24 +79,24 @@ router.put("/:courseID/delete", async (req, res) => {
             return res.status(400).json({ message: 'ContentID is required' });
         }
 
-        const course = await CourseContent.findOne({ courseId: courseID }).exec();
-        if (!course) {
-            return res.status(400).json({ message: 'No such Course ID found' });
-        }
-
         const content = await CourseContent.findOne({ _id: contentID }).exec();
         if (!content) {
             return res.status(400).json({ message: 'No such Content ID found' });
         }
 
+        // Remove specific notes
+        if (removeNotes && removeNotes.length > 0) {
+            content.notes = content.notes.filter(note => !removeNotes.includes(note));
+        }
+
+        // Remove specific videos
         if (removeVideos && removeVideos.length > 0) {
             content.videos = content.videos.filter(video => !removeVideos.includes(video));
         }
+
+        // Remove specific photos
         if (removePhotos && removePhotos.length > 0) {
             content.photos = content.photos.filter(photo => !removePhotos.includes(photo));
-        }
-        if (removeNotes) {
-            content.notes = [];
         }
 
         const updatedContent = await content.save();
@@ -106,6 +106,7 @@ router.put("/:courseID/delete", async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to update the content', error: error.message });
     }
 });
+
 
 
 

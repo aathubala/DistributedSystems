@@ -68,10 +68,10 @@ const BuyerDashboard = () => {
                 : pathname ===
                   `/buyer-dashboard/${localStorage.getItem("username")}/courses`
                   ? ["3"]
-                  : pathname ===
-                    `/buyer-dashboard/${localStorage.getItem("username")}/courses/${lastValue}`
-                    ? ["3"]
-                    : ["0"]
+                : pathname === 
+                `/buyer-dashboard/${localStorage.getItem("username")}/courses/${lastValue}`
+                  ? ["3"]
+                  : ["0"]
           }
         >
           <Menu.Item
@@ -100,7 +100,7 @@ const BuyerDashboard = () => {
               )
             }
           >
-            <ShopOutlined /> Enroll
+            <ShopOutlined /> Entroll
           </Menu.Item>
 
           <Menu.Item

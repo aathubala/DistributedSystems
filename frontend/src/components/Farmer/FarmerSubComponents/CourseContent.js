@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../styles/CourseContent.css'; 
+import '../styles/CourseContent.css'; // Import CSS file
 
 function CourseContent() {
   const [courseContent, setCourseContent] = useState(null);
   const [selectedVideos, setSelectedVideos] = useState([]);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [selectedNotes, setSelectedNotes] = useState([]);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [videos, setVideo] = useState('');
+  const [photos, setPhoto] = useState('');
+  const [notes, setNote] = useState('');
   const location = useLocation();
   
   useEffect(() => {
@@ -18,34 +22,15 @@ function CourseContent() {
         }
         const data = await response.json();
         setCourseContent(data.courseContent);
+        setSelectedVideos(new Array(data.courseContent.videos.length).fill(false));
+        setSelectedPhotos(new Array(data.courseContent.photos.length).fill(false));
+        setSelectedNotes(new Array(data.courseContent.notes.length).fill(false));
       } catch (error) {
         console.error(error);
       }
     }
     fetchCourseContent();
   }, [location.pathname]);
-
-  const handleAddContent = async (type, newData) => {
-    try {
-      if (courseContent) {
-        const response = await fetch(`http://localhost:8070/api/courseContent/${courseContent.courseId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            contentID: courseContent._id,
-            [type]: newData
-          })
-        });
-        if (!response.ok) {
-          throw new Error('Failed to add new content');
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleCheckboxChange = (type, index) => {
     switch (type) {
@@ -109,31 +94,30 @@ function CourseContent() {
     }
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = () => {
+    setShowUpdateForm(true);
+  };
+
+  const handleUpdateFormSubmit = async (event) => {
+    event.preventDefault();
     try {
-      if (courseContent) {
-        const updatedVideos = selectedVideos.filter(video => video.trim() !== ''); 
-        const updatedPhotos = selectedPhotos.filter(photo => photo.trim() !== '');
-        const updatedNotes = selectedNotes.trim() !== '' ? selectedNotes : null; 
-  
-        const response = await fetch(`http://localhost:8070/api/courseContent/${courseContent.courseId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            contentID: courseContent._id,
-            videos: updatedVideos,
-            photos: updatedPhotos,
-            notes: updatedNotes
-          })
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to update course content');
-        }
-        window.location.reload();
+      const response = await fetch(`http://localhost:8070/api/courseContent/${courseContent.courseId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contentID: courseContent._id,
+          videos,
+          photos,
+          notes
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update content');
       }
+      window.location.reload();
+      setShowUpdateForm(false);
     } catch (error) {
       console.error(error);
     }
@@ -183,31 +167,36 @@ function CourseContent() {
             </ul>
           </div>
           <div className="add-content-section">
-            <h3>Add New Videos</h3>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              handleAddContent('videos', ['']);
-            }}>
-              <input type="text" placeholder="Video URL" onChange={(e) => setSelectedVideos([...selectedVideos, e.target.value])} />
-            </form>
-            <h3>Add New Photos</h3>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              handleAddContent('photos', ['']);
-            }}>
-              <input type="text" placeholder="Photo URL" onChange={(e) => setSelectedPhotos([...selectedPhotos, e.target.value])} />
-            </form>
-            <h3>Add New Note</h3>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              handleAddContent('notes', '');
-            }}>
-              <input type="text" placeholder="Note" onChange={(e) => setSelectedNotes(e.target.value)} />
-            </form>
+            <button className="update-btn" onClick={handleUpdate}>Update</button>
+            <button className="delete-btn" onClick={handleDelete} disabled={isDeleteDisabled()}>Delete</button>
+            <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
           </div>
-          <button className="delete-btn" onClick={handleDelete} disabled={isDeleteDisabled()}>Delete</button>
-          <button className="update-btn" onClick={handleUpdate}>Update</button>
-          <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+
+          {showUpdateForm && (
+            <div className="modal">
+              <form onSubmit={handleUpdateFormSubmit} className="modal-content">
+
+                <h3>Add Content</h3>
+                <label>
+                  Video URL:
+                  <input type="text" value={videos} onChange={e => setVideo(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                  Photo URL:
+                  <input type="text" value={photos} onChange={e => setPhoto(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                  Note Text:
+                  <input type="text" value={notes} onChange={e => setNote(e.target.value)} />
+                </label>
+                <br />
+                <button className="update-btn" type="submit">Submit</button>
+                <button className="cancel-btn" onClick={() => setShowUpdateForm(false)}>Close</button>
+              </form>
+            </div>
+          )}
         </div>
       ) : (
         <p>Loading...</p>

@@ -4,6 +4,9 @@ import { InboxOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import moment from "moment";
 import Api from "../Cart/api";
+import { useDispatch } from 'react-redux';
+import { addToCarts } from "../../../Actions/cartAction";
+
 
 const { Meta } = Card;
 
@@ -11,6 +14,7 @@ const Products = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -22,8 +26,11 @@ const Products = () => {
   }, []);
 
   const addToCart = (value) => {
+
+    dispatch(addToCarts(value))
     try {
       Api.set(value?._id, value);
+      console.log(value)
       notification.info({
         message: `Notification`,
         description: `${value?.itemName} added to entrollment process`,
