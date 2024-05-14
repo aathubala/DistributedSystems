@@ -1,0 +1,57 @@
+.course-contents-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .course-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .course-id {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .content-section {
+    margin-top: 20px;
+  }
+  
+  .content-section h3 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .video-item {
+    flex: 0 0 calc(50% - 20px);
+  }
+  
+  .photo-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .photo-item {
+    flex: 0 0 calc(33.33% - 20px);
+  }
+  
+  .loading-message {
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+  }
+  

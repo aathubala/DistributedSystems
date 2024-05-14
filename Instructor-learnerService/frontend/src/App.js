@@ -33,6 +33,7 @@ import Register from "./components/Register/Register";
 import ResetPassword from "./components/Register/ResetPassword";
 import PageNotFound from "./components/routes/PageNotFound";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import CourseContent from "./components/Farmer/FarmerSubComponents/CourseContent";
 
 const App = () => {
   const [users, setUsers] = useState([])
@@ -102,6 +103,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path={`/farmer-dashboard/:username/edit/courseContent/:courseID`}
+            element={
+              <PrivateRoute>
+                <CourseContent />
+              </PrivateRoute>
+            }
+          />
 
           {/* Buyer */}
           <Route
@@ -127,6 +136,21 @@ const App = () => {
                 <BuyerDashboard />
               </PrivateRoute>
             }
+          />
+
+<Route
+            path="/buyer-dashboard/:username/courses"
+            element={
+              <PrivateRoute>
+                <BuyerDashboard />
+              </PrivateRoute>}
+          />
+          <Route
+            path="/buyer-dashboard/:username/courses/:courseID"
+            element={
+              <PrivateRoute>
+                <BuyerDashboard />
+              </PrivateRoute>}
           />
 
 {currentAdmin ? (

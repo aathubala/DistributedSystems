@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Import Link component
 
 const { Meta } = Card;
 
@@ -18,7 +18,7 @@ const ViewItems = () => {
 
   useEffect(() => {
     (async () => {
-      await axios.get("/item/accepted").then((res) => {
+      await axios.get("/item/").then((res) => {
         setData(res.data);
         setLoading(true);
       });
@@ -113,6 +113,18 @@ const ViewItems = () => {
                               <span>Delete</span>
                             </div>
                           )}
+                        </>,
+                      ],
+                      [
+                        <>
+                          <Link
+                            to={`/farmer-dashboard/${localStorage.getItem(
+                              "username"
+                            )}/edit/courseContent/${value?._id}`}
+                            className="card-link"
+                          >
+                            Course Content
+                          </Link>
                         </>,
                       ],
                     ]}

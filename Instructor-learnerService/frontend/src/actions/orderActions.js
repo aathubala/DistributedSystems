@@ -12,15 +12,15 @@ export const placeOrder = (token, subtotal) => async (dispatch, getState) => {
         _id: localStorage.getItem('userId')
     }
     const cartItems = getState().cartReducer.cartItems
-    console.log('currentuser:',currentUser)
+    console.log('currentuser:', currentUser)
 
     try {
 
         await axios.post('/api/enroll', { token: token, subtotal, currentUser, cartItems })
         dispatch({ type: 'PLACE_ORDER_SUCCESS' })
-        setTimeout(function(){
+        setTimeout(function () {
             window.location.replace('/orders');
-         }, 1000);
+        }, 1000);
 
     } catch (error) {
 
@@ -30,23 +30,23 @@ export const placeOrder = (token, subtotal) => async (dispatch, getState) => {
 }
 
 
-export const getUserOrders = () => async (dispatch , getState) => {
+export const getUserOrders = () => async (dispatch, getState) => {
 
-    const _id =  localStorage.getItem('userId')
+    const _id = localStorage.getItem('userId')
     dispatch({ type: 'GET_USER_ORDERS_REQUEST' })
     console.log("inside getUserOrders")
 
     try {
 
-        const response = await axios.post('/api/getusercourses' , {userid : _id})
+        const response = await axios.post('/api/getusercourses', { userid: _id })
         console.log(response);
-        dispatch({ type: 'GET_USER_ORDERS_SUCCESS', payload : response.data })
-        
+        dispatch({ type: 'GET_USER_ORDERS_SUCCESS', payload: response.data })
+
 
     } catch (error) {
         console.log("failed")
 
-        dispatch({ type: 'GET_USER_ORDERS_FAILED', payload : error })
+        dispatch({ type: 'GET_USER_ORDERS_FAILED', payload: error })
     }
 
 }
@@ -117,56 +117,56 @@ export const courseApproveAction = (updateisDeliverd, orderId) => async dispatch
     dispatch({ type: 'UPDATE_ORDER_DELIVERY_VERIFICATION_REQUEST' })
 
 
-        try {
-            const response = await axios.put(`http://localhost:8080/api/course/update/order/status/${orderId}`, updateisDeliverd)
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    try {
+        const response = await axios.put(`http://localhost:8080/api/course/update/order/status/${orderId}`, updateisDeliverd)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'success',
-                title: 'Order approved successfully!'
-            })
-            setTimeout(function () {
-                window.location.reload('/admin/orders');
-            }, 1500);
-           
-
-            console.log(response);
-            dispatch({ type: 'UPDATE_ORDER_DELIVERY_VERIFICATION_SUCCESS' })
+        Toast.fire({
+            icon: 'success',
+            title: 'Order approved successfully!'
+        })
+        setTimeout(function () {
+            window.location.reload('/admin/orders');
+        }, 1500);
 
 
-        } catch (error) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'error',
-                title: 'Order approved unsuccessfully'
-            })
-
-            dispatch({ type: 'UPDATE_ORDER_DELIVERY_VERIFICATION_FAILED', payload: error })
-        }
+        console.log(response);
+        dispatch({ type: 'UPDATE_ORDER_DELIVERY_VERIFICATION_SUCCESS' })
 
 
-    
+    } catch (error) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'error',
+            title: 'Order approved unsuccessfully'
+        })
+
+        dispatch({ type: 'UPDATE_ORDER_DELIVERY_VERIFICATION_FAILED', payload: error })
+    }
+
+
+
 
 
 }
@@ -176,53 +176,53 @@ export const updaterefundrequestAction = (updatesendrefundStatus, orderId) => as
     dispatch({ type: 'UPDATE_REFUND_REQUEST' })
 
 
-        try {
-            const response = await axios.put(`https://hungrymeals-backend.onrender.com/api/orders/update/order/refund/request/${orderId}`, updatesendrefundStatus)
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    try {
+        const response = await axios.put(`https://hungrymeals-backend.onrender.com/api/orders/update/order/refund/request/${orderId}`, updatesendrefundStatus)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'success',
-                title: 'Refund request send successfully!'
-            })
-            setTimeout(function () {
-                window.location.reload('/admin/orders');
-            }, 1500);
-           
-
-            console.log(response);
-            dispatch({ type: 'UPDATE_REFUND_REQUEST_SUCCESS' })
+        Toast.fire({
+            icon: 'success',
+            title: 'Refund request send successfully!'
+        })
+        setTimeout(function () {
+            window.location.reload('/admin/orders');
+        }, 1500);
 
 
-        } catch (error) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+        console.log(response);
+        dispatch({ type: 'UPDATE_REFUND_REQUEST_SUCCESS' })
 
-            Toast.fire({
-                icon: 'error',
-                title: 'Refund request send unsuccessfully'
-            })
 
-            dispatch({ type: 'UPDATE_REFUND_REQUEST_FAILED', payload: error })
-        }
+    } catch (error) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'error',
+            title: 'Refund request send unsuccessfully'
+        })
+
+        dispatch({ type: 'UPDATE_REFUND_REQUEST_FAILED', payload: error })
+    }
 
 
 }
@@ -232,53 +232,63 @@ export const updateuserrefundrequestAction = (updateorderStatus, orderId) => asy
     dispatch({ type: 'UPDATE_REFUND_REQUEST' })
 
 
-        try {
-            const response = await axios.put(`https://hungrymeals-backend.onrender.com/api/orders/update/order/refund/request/user/${orderId}`, updateorderStatus)
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+    try {
+        const response = await axios.put(`https://hungrymeals-backend.onrender.com/api/orders/update/order/refund/request/user/${orderId}`, updateorderStatus)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: 'success',
-                title: 'Refund request send successfully!'
-            })
-            setTimeout(function () {
-                window.location.reload('/admin/orders');
-            }, 1500);
-           
-
-            console.log(response);
-            dispatch({ type: 'UPDATE_REFUND_REQUEST_SUCCESS' })
+        Toast.fire({
+            icon: 'success',
+            title: 'Refund request send successfully!'
+        })
+        setTimeout(function () {
+            window.location.reload('/admin/orders');
+        }, 1500);
 
 
-        } catch (error) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+        console.log(response);
+        dispatch({ type: 'UPDATE_REFUND_REQUEST_SUCCESS' })
 
-            Toast.fire({
-                icon: 'error',
-                title: 'Refund request send unsuccessfully'
-            })
 
-            dispatch({ type: 'UPDATE_REFUND_REQUEST_FAILED', payload: error })
-        }
+    } catch (error) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'error',
+            title: 'Refund request send unsuccessfully'
+        })
+
+        dispatch({ type: 'UPDATE_REFUND_REQUEST_FAILED', payload: error })
+    }
 
 
 }
+
+export const fetchCourseContent = (courseId) => async () => {
+    try {
+        const response = await axios.get(`http://localhost:8070/api/courseContent/${courseId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching course content:', error);
+        throw error;
+    }
+};
