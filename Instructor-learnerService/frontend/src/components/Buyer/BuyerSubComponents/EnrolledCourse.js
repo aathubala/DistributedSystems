@@ -22,7 +22,7 @@ export default function EnrolledCourse() {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">My Orders</h2>
+      <h2 className="text-center mb-4">My Courses</h2>
       <div className="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
         {orders.map((order) => (
           <div key={order._id} className="col">
@@ -33,8 +33,7 @@ export default function EnrolledCourse() {
                 </div>
                 <div className="card-body">
                   <h5 className="card-title text-center">{order.itemName}</h5>
-                  <p className="card-text">Description: {order.desc}</p>
-                  <p className="card-text">Amount: {order.price} LKR</p>
+                  
                   <p className="card-text">Date: {order.createdAt.substring(0, 10)}</p>
                   <p className="card-text">Order ID: {order._id}</p>
                   {order.Status ? (

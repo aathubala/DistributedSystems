@@ -88,7 +88,7 @@ const Shop = () => {
             stripeKey="pk_test_GlFtmasU7tmBohUIk7vMbEnf00NA3VYaa0"
             token={handleToken}
             amount={(Number(total) / 370) * 100}
-            name="Agri Product Online Purchasing Platform"
+            name="E- Learning Education Platform"
             billingAddress
             shippingAddress
           />
